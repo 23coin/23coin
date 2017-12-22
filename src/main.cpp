@@ -828,19 +828,21 @@ uint256 static GetOrphanRoot(const CBlock* pblock)
 
 int64 static GetBlockValue(int nHeight, int64 nFees)
 {
-    int64 nSubsidy = 4 * COIN;
+    int64 nSubsidy = 23 * COIN;
 
 
+    /*
     if(nHeight < 17280) // no block reward within the first 3 days
         nSubsidy = 0;
     if(nHeight > 10519200) // no block reward after 5 years
         nSubsidy = 0;
+    */
 
     return nSubsidy + nFees;
 }
 
-static const int64 nTargetTimespan = 0.35 * 24 * 60 * 60; // 23Coin: 0.35 days
-static const int64 nTargetSpacing = 15; // 23Coin: 15 seconds
+static const int64 nTargetTimespan = 23 * 60; // 23Coin: 23 minutes
+static const int64 nTargetSpacing = 1 * 23 * 60 * 60; // 23Coin: 23 hours
 static const int64 nInterval = nTargetTimespan / nTargetSpacing;
 
 // Thanks: Balthazar for suggesting the following fix
@@ -2007,12 +2009,12 @@ bool LoadBlockIndex(bool fAllowNew)
             return false;
 
 	// Genesis block:
-	// block.nTime = 1366559428
+	// block.nTime = 1513906623
 	// block.nNonce = 2085386442
 	// block.GetHash = 384b060671f4a93948e9c168216dadb0ca2fbc54aa11c86b0345b6af1c59b2f5
 	// CBlock(hash=384b060671f4a93948e9, PoW=00000951e146b0026411, ver=1,
 	//  hashPrevBlock=00000000000000000000, hashMerkleRoot=5a2e19825b,
-	//  nTime=1366559428, nBits=1e0ffff0, nNonce=2085386442, vtx=1)
+	//  nTime=1513906623, nBits=1e0ffff0, nNonce=2085386442, vtx=1)
 	// CTransaction(hash=5a2e19825b, ver=1, vin.size=1, vout.size=1, nLockTime=0)
 	// CTxIn(COutPoint(0000000000, -1), coinbase 04ffff001d010441746f646f3a207265706c616365207769746820736f6d657468696e67207468617420656e7375726573206e6f207072656d696e696e6720746f6f6b20706c616365)
 	// CTxOut(error)
@@ -2031,13 +2033,13 @@ bool LoadBlockIndex(bool fAllowNew)
         block.hashPrevBlock = 0;
         block.hashMerkleRoot = block.BuildMerkleTree();
         block.nVersion = 1;
-        block.nTime    = 1366559428;
+        block.nTime    = 1513906623;
         block.nBits    = 0x1e0ffff0;
         block.nNonce   = 2085386442;
 
         if (fTestNet)
         {
-            block.nTime    = 1366559428;
+            block.nTime    = 1513906623;
             block.nNonce   = 386402991;
         }
 
